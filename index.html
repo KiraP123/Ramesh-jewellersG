@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramesh Jewellers - IIJS Signature 2026 Navigation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #c5a059;
+            --gold-dark: #b8860b;
+            --dark: #0f172a;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        * { box-sizing: border-box; transition: all 0.3s ease; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            color: #334155;
+        }
+
+        /* Hero Header */
+        .header {
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        .header h1 { 
+            font-family: 'Playfair Display', serif;
+            margin: 0; 
+            font-size: 2.5rem; 
+            letter-spacing: 2px;
+            color: var(--gold);
+        }
+
+        .stall-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 30px;
+            background: var(--gold);
+            color: var(--dark);
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        /* Contact & Office Section */
+        .contact-bar {
+            background: #f1f5f9;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .contact-bar strong { color: var(--dark); }
+
+        /* Navigation Menu */
+        .gate-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 30px 20px;
+            justify-content: center;
+            background: var(--white);
+        }
+
+        .gate-btn {
+            flex: 1;
+            min-width: 160px;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .gate-btn.active {
+            background: var(--dark);
+            color: var(--gold);
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Content Section */
+        .content-section { 
+            max-width: 1200px; 
+            margin: 0 auto 50px; 
+            padding: 0 20px; 
+        }
+
+        .route-card {
+            display: none;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.6s ease;
+        }
+
+        .route-card.active { display: grid; }
+
+        .steps-container h3 {
+            color: var(--dark);
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .steps-container h3::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: var(--gold);
+            margin-left: 15px;
+        }
+
+        .step-item {
+            display: flex;
+            background: #fdfdfd;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #f1f5f9;
+            align-items: center;
+        }
+
+        .step-num {
+            background: var(--gold);
+            color: var(--dark);
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        /* Image Display */
+        .image-preview {
+            position: relative;
+            cursor: zoom-in;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .image-preview img { width: 100%; display: block; }
+
+        .zoom-label {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--gold);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Lightbox */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            justify-content: center; align-items: center;
+            flex-direction: column;
+        }
+
+        #lightbox img { max-width: 95%; max-height: 85%; border: 3px solid var(--gold); }
+        .close { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: #94a3b8;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 5px solid var(--gold);
+        }
+
+        @media (max-width: 900px) {
+            .route-card { grid-template-columns: 1fr; }
+            .image-preview { order: -1; }
+            .header h1 { font-size: 1.8rem; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>RAMESH JEWELLERS</h1>
+    <div class="stall-badge">IIJS SIGNATURE 2026 | STALL J-15I</div>
+</div>
+
+<div class="contact-bar">
+    <strong>Contact:</strong> Nilesh Mehta (+91 8850076150) 
+    <strong>Contact:</strong> prabhulal prajapati (+91 9769266671)   
+    <strong>Office:</strong> 19/A Patwa Chawl, 1st Floor, Mahajan Galli, S.K. Menon Street, Mumbai - 400 002
+</div>
+
+<div class="gate-menu">
+    <button class="gate-btn active" onclick="openRoute('gate1', this)">GATE 1 (Aisle G)</button>
+    <button class="gate-btn" onclick="openRoute('gate2', this)">GATE 2 (Middle)</button>
+    <button class="gate-btn" onclick="openRoute('gate3', this)">GATE 3 (Last Entry)</button>
+</div>
+
+<div class="content-section">
+    <div id="gate1" class="route-card active">
+        <div class="steps-container">
+            <h3>Route from Gate 1</h3>
+            <div class="step-item"><div class="step-num">1</div><p>Enter the hall and cross <b>Aisle G</b>.</p></div>
+            <div class="step-item"><div class="step-num">2</div><p>Take a <b>Right</b> turn after crossing Aisle G.</p></div>
+            <div class="step-item"><div class="step-num">3</div><p>Continue straight; you will first see <b>Aisle H</b>.</p></div>
+            <div class="step-item"><div class="step-num">4</div><p>Proceed to <b>Aisle J</b>, take a <b>Left</b>, and walk straight to find <b>Stall J-15I</b>.</p></div>
+        </div>
+        <div class="image-preview" onclick="zoomImage('thirdgate.jpg')">
+            <span class="zoom-label">🔍 Click to Zoom</span>
+            <img src="thirdgate.jpg" alt="Gate 1 Path">
+        </div>
+    </div>
+
+    <div id="gate2" class="route-card">
+        <div class="steps-container">
+            <h3>Route from Gate 2</h3>
+            <div class="step-item"><div class="step-num">1</div><p>Enter via the <b>Middle Gate</b>; <b>Aisle N</b> will be directly in front of you.</p></div>
+            <div class="step-item"><div class="step-num">2</div><p>Walk forward until you reach the <b>Coffee Shop</b>.</p></div>
+            <div class="step-item"><div class="step-num">3</div><p>Take a <b>Left</b> turn from the Coffee Shop and pass through Aisles N, M, L, and K.</p></div>
+            <div class="step-item"><div class="step-num">4</div><p>After Aisle K, you will reach <b>Aisle J</b>. Turn <b>Right</b> to find <b>Stall J-15I</b>.</p></div>
+        </div>
+        <div class="image-preview" onclick="zoomImage('middlegate.jpg')">
+            <span class="zoom-label">🔍 Click to Zoom</span>
+            <img src="middlegate.jpg" alt="Gate 2 Path">
+        </div>
+    </div>
+
+    <div id="gate3" class="route-card">
+        <div class="steps-container">
+            <h3>Route from Gate 3</h3>
+            <div class="step-item"><div class="step-num">1</div><p>Enter through the <b>Last Entrance</b>; you will see <b>Aisle U</b> in front.</p></div>
+            <div class="step-item"><div class="step-num">2</div><p>Walk out from Aisle U and take a <b>Left</b> turn.</p></div>
+            <div class="step-item"><div class="step-num">3</div><p>Pass through Aisles T, S, R, Q, P, N, M, L, and K.</p></div>
+            <div class="step-item"><div class="step-num">4</div><p>Enter <b>Aisle J</b> and walk along the side to reach <b>Stall J-15I</b>.</p></div>
+        </div>
+        <div class="image-preview" onclick="zoomImage('firstgate.jpg')">
+            <span class="zoom-label">🔍 Click to Zoom</span>
+            <img src="firstgate.jpg" alt="Gate 3 Path">
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2026 Ramesh Jewellers. All Rights Reserved.</p>
+    <p style="font-size: 0.8rem;">Jio World Convention Centre (JWCC), Mumbai</p>
+</div>
+
+<div id="lightbox" onclick="this.style.display='none'">
+    <span class="close">&times;</span>
+    <img id="zoom-img" src="">
+</div>
+
+<script>
+    function openRoute(id, btn) {
+        document.querySelectorAll('.gate-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.route-card').forEach(card => card.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    function zoomImage(imgSrc) {
+        document.getElementById('lightbox').style.display = 'flex';
+        document.getElementById('zoom-img').src = imgSrc;
+    }
+</script>
+
+</body>
+</html>
